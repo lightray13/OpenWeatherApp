@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.testing.openweatherapp.ui.weather.WeatherViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back2"
+        tools:context=".ui.weather.WeatherFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:background="@color/purple_500"
+            app:titleTextColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/weatherLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/back">
+                <ImageView
+                    android:id="@+id/imageViewIcon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_baseline_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/textViewTemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="32sp"
+                    android:textColor="@color/white"
+                    android:text="@string/empty_string"
+                    app:layout_constraintStart_toEndOf="@id/imageViewIcon"
+                    app:layout_constraintTop_toTopOf="@id/imageViewIcon"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewIcon"/>
+
+                <TextView
+                    android:id="@+id/textViewDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="@string/empty_string"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewIcon"
+                    app:layout_constraintStart_toStartOf="@+id/textViewTemp"/>
+
+                <TextView
+                    android:id="@+id/textViewFeelsLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/feels_like"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDescription"
+                    app:layout_constraintStart_toStartOf="@id/textViewDescription"/>
+
+                <TextView
+                    android:id="@+id/textViewFeelsLikeTemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/empty_string"
+                    app:layout_constraintStart_toEndOf="@+id/textViewFeelsLike"
+                    app:layout_constraintTop_toTopOf="@+id/textViewFeelsLike"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/back">
+                <ImageView
+                    android:id="@+id/imageViewHumidity"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/baseline_water_drop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/textViewHumidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="@string/humidity"
+                    app:layout_constraintStart_toEndOf="@id/imageViewHumidity"
+                    app:layout_constraintTop_toTopOf="@id/imageViewHumidity"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewHumidity"/>
+
+                <TextView
+                    android:id="@+id/textViewHumidityValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="@string/empty_string"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewHumidity"
+                    app:layout_constraintStart_toStartOf="@+id/textViewHumidity"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/back">
+                <ImageView
+                    android:id="@+id/imageViewPressure"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/baseline_pressure"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/textViewPressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="@string/pressure"
+                    app:layout_constraintStart_toEndOf="@id/imageViewPressure"
+                    app:layout_constraintTop_toTopOf="@id/imageViewPressure"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewPressure"/>
+
+                <TextView
+                    android:id="@+id/textViewPressureAboutSeeLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="-"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewPressure"
+                    app:layout_constraintStart_toStartOf="@+id/textViewPressure"/>
+
+                <TextView
+                    android:id="@+id/textViewPressureAboutSeeLevelInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/atmospheric_pressure_above_sea_level"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPressureAboutSeeLevel"
+                    app:layout_constraintStart_toStartOf="@+id/textViewPressureAboutSeeLevel"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textViewPressureAboutGroundLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="-"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPressureAboutSeeLevelInfo"
+                    app:layout_constraintStart_toStartOf="@+id/textViewPressureAboutSeeLevelInfo"/>
+
+                <TextView
+                    android:id="@+id/textViewPressureAboutGroundLevelInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/atmospheric_pressure_above_ground_level"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPressureAboutGroundLevel"
+                    app:layout_constraintStart_toStartOf="@+id/textViewPressureAboutGroundLevel"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="64dp"
+                android:background="@drawable/back">
+                <ImageView
+                    android:id="@+id/imageViewWind"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/baseline_wind"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <TextView
+                    android:id="@+id/textViewWind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="@string/wind"
+                    app:layout_constraintStart_toEndOf="@id/imageViewWind"
+                    app:layout_constraintTop_toTopOf="@id/imageViewWind"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewWind"/>
+
+                <TextView
+                    android:id="@+id/textViewWindSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="-"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewWind"
+                    app:layout_constraintStart_toStartOf="@+id/textViewWind"/>
+
+                <TextView
+                    android:id="@+id/textViewWindSpeedInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/wind_speed"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewWindSpeed"
+                    app:layout_constraintStart_toStartOf="@+id/textViewWindSpeed"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textViewWindDeg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:text="-"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewWindSpeedInfo"
+                    app:layout_constraintStart_toStartOf="@+id/textViewWindSpeedInfo"/>
+
+                <TextView
+                    android:id="@+id/textViewWindDegInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="@string/direction_of_the_wind"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewWindDeg"
+                    app:layout_constraintStart_toStartOf="@+id/textViewWindDeg"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
